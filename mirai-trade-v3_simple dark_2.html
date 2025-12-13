@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MIRAI TRADE - 未来を見据えたグローバルトレーディング。信頼と革新で世界をつなぐ。">
+  <title>MIRAI TRADE | グローバルトレーディング</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #E85A2A;
+      --primary-dark: #C74A1E;
+      --primary-light: #FF7A4D;
+      --accent-glow: rgba(232, 90, 42, 0.5);
+      --bg-dark: #0a1628;
+      --bg-navy: #0d1a2d;
+      --bg-card: #122036;
+      --bg-card-hover: #1a2d47;
+      --bg-modal: #0f1825;
+      --text-white: #ffffff;
+      --text-light: #e0e8f0;
+      --text-muted: #8a9bb5;
+      --border-dark: #1e3a5f;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Noto Sans JP', 'Helvetica Neue', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-light);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    
+    body.modal-open { overflow: hidden; }
+    
+    a { color: var(--primary); text-decoration: none; transition: var(--transition); }
+    a:hover { color: var(--primary-light); }
+    
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+    /* ナビゲーション */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 1.2rem 0;
+      background: rgba(10, 22, 40, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid transparent;
+      z-index: 1000;
+      transition: var(--transition);
+    }
+    
+    nav.scrolled { border-bottom: 1px solid var(--border-dark); }
+    
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo img {
+      height: 55px;
+      width: auto;
+      filter: 
+        drop-shadow(0 0 10px rgba(255, 255, 255, 0.5))
+        drop-shadow(0 0 20px rgba(255, 255, 255, 0.3))
+        drop-shadow(0 0 30px var(--accent-glow))
+        drop-shadow(0 0 50px var(--accent-glow))
+        brightness(1.2)
+        contrast(1.1);
+      transition: var(--transition);
+    }
+    
+    .logo:hover img {
+      filter: 
+        drop-shadow(0 0 15px rgba(255, 255, 255, 0.6))
+        drop-shadow(0 0 30px rgba(255, 255, 255, 0.4))
+        drop-shadow(0 0 40px var(--accent-glow))
+        drop-shadow(0 0 60px var(--accent-glow))
+        brightness(1.25)
+        contrast(1.1);
+      transform: scale(1.05);
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 0.5rem;
+    }
+    
+    .nav-links a {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .nav-links a:hover {
+      color: var(--text-white);
+      background: var(--bg-card);
+    }
+    
+    .menu-toggle {
+      display: none;
+      font-size: 1.5rem;
+      color: var(--text-white);
+      cursor: pointer;
+    }
+
+    /* ヒーロー */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at 50% 30%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+        radial-gradient(ellipse at 20% 80%, rgba(232, 90, 42, 0.12) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(232, 90, 42, 0.08) 0%, transparent 50%),
+        linear-gradient(180deg, #0a1628 0%, #0d1a2d 50%, #0a1225 100%);
+    }
+    
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(30, 58, 95, 0.4) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(30, 58, 95, 0.4) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.4;
+      mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      padding: 0 2rem;
+    }
+    
+    .hero-logo-wrapper {
+      position: relative;
+      width: 220px;
+      height: 220px;
+      margin: 0 auto 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .logo-glow {
+      position: absolute;
+      inset: -30%;
+      background: 
+        radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 35%),
+        radial-gradient(circle, rgba(232, 90, 42, 0.5) 0%, rgba(255, 122, 77, 0.25) 40%, transparent 70%);
+      border-radius: 50%;
+      animation: glowPulse 4s ease-in-out infinite;
+      z-index: 0;
+    }
+    
+    @keyframes glowPulse {
+      0%, 100% { opacity: 0.8; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.15); }
+    }
+    
+    .hero-logo {
+      position: relative;
+      z-index: 1;
+      width: 170px;
+      height: auto;
+      filter: 
+        drop-shadow(0 0 20px rgba(255, 255, 255, 0.3))
+        drop-shadow(0 0 40px rgba(232, 90, 42, 0.4))
+        drop-shadow(0 15px 35px rgba(0, 0, 0, 0.5))
+        brightness(1.1)
+        contrast(1.05);
+      animation: logoFloat 5s ease-in-out infinite;
+    }
+    
+    @keyframes logoFloat {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      25% { transform: translateY(-8px) rotate(0.5deg); }
+      75% { transform: translateY(-8px) rotate(-0.5deg); }
+    }
+    
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      letter-spacing: 8px;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--text-white) 0%, var(--text-muted) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .hero h2 {
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      letter-spacing: 2px;
+    }
+    
+    .hero p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 500px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.9;
+    }
+    
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 4px 20px var(--accent-glow);
+    }
+    
+    .cta-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px var(--accent-glow);
+    }
+
+    /* モーダル */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+    }
+    
+    .modal-overlay.active { opacity: 1; visibility: visible; }
+    
+    .modal {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 65%;
+      max-width: 800px;
+      height: 100vh;
+      background: var(--bg-modal);
+      z-index: 2001;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow-y: auto;
+      border-left: 1px solid var(--border-dark);
+    }
+    
+    .modal.active { right: 0; }
+    
+    .modal-close {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      border: 1px solid var(--border-dark);
+      background: var(--bg-card);
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      color: var(--text-muted);
+      transition: var(--transition);
+      z-index: 10;
+    }
+    
+    .modal-close:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+    
+    .modal-content { padding: 4rem 3rem; }
+    
+    .modal-title {
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--text-white);
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .modal-title i {
+      color: var(--primary);
+      font-size: 1.5rem;
+    }
+    
+    .modal-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--border-dark) 0%, transparent 100%);
+      margin-left: 1rem;
+    }
+
+    /* サービスカード */
+    .service-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-dark);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 0;
+      background: linear-gradient(180deg, var(--primary) 0%, var(--primary-dark) 100%);
+      transition: var(--transition);
+    }
+    
+    .service-card:hover {
+      border-color: var(--primary);
+      transform: translateX(8px);
+    }
+    
+    .service-card:hover::before { height: 100%; }
+    
+    .service-card h4 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-white);
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    
+    .service-card h4 i { color: var(--primary); }
+    
+    .service-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+
+    /* 強み */
+    .strengths-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    
+    .strength-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-dark);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      transition: var(--transition);
+    }
+    
+    .strength-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .strength-number {
+      font-size: 2.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .strength-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 0.3rem;
+    }
+    
+    .strength-title {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-white);
+    }
+
+    /* 会社情報 */
+    .company-info {
+      background: var(--bg-card);
+      border: 1px solid var(--border-dark);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .company-info p {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+      color: var(--text-light);
+    }
+    
+    .company-info p:last-child { margin-bottom: 0; }
+    
+    .company-info i {
+      color: var(--primary);
+      width: 20px;
+      margin-right: 1rem;
+      margin-top: 0.2rem;
+    }
+    
+    .company-info strong {
+      min-width: 90px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* 地図 */
+    .map-section { margin-top: 2rem; }
+    
+    .map-section h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-white);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    
+    .map-section h3 i { color: var(--primary); }
+    
+    .map-container {
+      width: 100%;
+      height: 280px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border-dark);
+      margin-bottom: 1.5rem;
+    }
+    
+    .map-container iframe { width: 100%; height: 100%; border: none; }
+    
+    .access-list {
+      background: var(--bg-card);
+      border: 1px solid var(--border-dark);
+      border-radius: 12px;
+      padding: 1.5rem;
+      list-style: none;
+    }
+    
+    .access-list li {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.8rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    
+    .access-list li:last-child { margin-bottom: 0; }
+    
+    .access-list i {
+      color: var(--primary);
+      margin-right: 0.8rem;
+      width: 16px;
+    }
+    
+    .access-list .station {
+      font-weight: 600;
+      color: var(--text-white);
+    }
+    
+    .access-list .time {
+      background: var(--primary);
+      color: white;
+      padding: 0.15rem 0.6rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      margin-left: auto;
+    }
+    
+    .map-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 500;
+      margin-top: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .map-btn:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* お問い合わせフォーム */
+    .form-group { margin-bottom: 1.5rem; }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-dark);
+      border-radius: 10px;
+      color: var(--text-white);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(232, 90, 42, 0.1);
+    }
+    
+    .form-group textarea { min-height: 120px; resize: vertical; }
+    
+    .btn-submit {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px var(--accent-glow);
+    }
+    
+    .form-message {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 8px;
+      display: none;
+    }
+    
+    .form-message.success {
+      display: block;
+      background: rgba(46, 204, 113, 0.1);
+      border: 1px solid rgba(46, 204, 113, 0.3);
+      color: #2ecc71;
+    }
+
+    /* フッター */
+    footer {
+      background: #050505;
+      border-top: 1px solid var(--border-dark);
+      padding: 2rem 0;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    
+    footer a { color: var(--text-light); }
+
+    /* レスポンシブ */
+    @media (max-width: 768px) {
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: var(--bg-dark);
+        flex-direction: column;
+        padding: 1rem;
+        border-bottom: 1px solid var(--border-dark);
+        display: none;
+      }
+      
+      .nav-links.active { display: flex; }
+      .menu-toggle { display: block; }
+      .hero h1 { font-size: 2.2rem; letter-spacing: 4px; }
+      .hero h2 { font-size: 1.2rem; }
+      .modal { width: 100%; }
+      .modal-content { padding: 3rem 1.5rem; }
+      .strengths-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <div class="container nav-inner">
+      <a href="#" class="logo" onclick="closeAllModals(); return false;">
+        <img src="image/4.png" alt="MIRAI TRADE">
+      </a>
+      <div class="menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></div>
+      <ul class="nav-links" id="nav-links">
+        <li><a onclick="openModal('services')">事業内容</a></li>
+        <li><a onclick="openModal('strengths')">強み</a></li>
+        <li><a onclick="openModal('about')">会社概要</a></li>
+        <li><a onclick="openModal('contact')">お問い合わせ</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="hero-logo-wrapper">
+        <div class="logo-glow"></div>
+        <img src="image/3.png" alt="MIRAI TRADE" class="hero-logo">
+      </div>
+      <h1>MIRAI TRADE</h1>
+      <h2>未来を見据えたグローバルトレーディング</h2>
+      <p>信頼と革新で世界をつなぐ。多様なニーズに応える確かなパートナーシップで、ビジネスの未来を共に創造します。</p>
+      <button class="cta-btn" onclick="openModal('contact')">
+        <i class="fas fa-envelope"></i> お問い合わせ
+      </button>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 MIRAI TRADE 株式会社. All rights reserved.</p>
+      <p><a href="#">プライバシーポリシー</a> | <a href="#">利用規約</a></p>
+    </div>
+  </footer>
+
+  <div class="modal-overlay" id="modal-overlay" onclick="closeAllModals()"></div>
+
+  <!-- 事業内容 -->
+  <div class="modal" id="modal-services">
+    <button class="modal-close" onclick="closeAllModals()"><i class="fas fa-times"></i></button>
+    <div class="modal-content">
+      <h2 class="modal-title"><i class="fas fa-briefcase"></i> 事業内容</h2>
+      <div class="service-card">
+        <h4><i class="fas fa-globe-asia"></i> 国際貿易・輸出入業務</h4>
+        <p>アジアを中心としたグローバルネットワークを活かし、様々な商品の輸出入業務を行っています。確かな物流パートナーシップで、スムーズな取引を実現します。</p>
+      </div>
+      <div class="service-card">
+        <h4><i class="fas fa-handshake"></i> ビジネスマッチング</h4>
+        <p>国内外の企業をつなぐビジネスマッチングサービス。最適なパートナーとの出会いを創出し、新たなビジネスチャンスを提供します。</p>
+      </div>
+      <div class="service-card">
+        <h4><i class="fas fa-chart-line"></i> 市場調査・コンサルティング</h4>
+        <p>海外市場への参入をサポート。現地の市場動向、競合分析、法規制などの調査を通じて、最適な事業戦略をご提案します。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 強み -->
+  <div class="modal" id="modal-strengths">
+    <button class="modal-close" onclick="closeAllModals()"><i class="fas fa-times"></i></button>
+    <div class="modal-content">
+      <h2 class="modal-title"><i class="fas fa-award"></i> 私たちの強み</h2>
+      <div class="strengths-grid">
+        <div class="strength-card">
+          <div class="strength-number">10+</div>
+          <div class="strength-label">Years</div>
+          <div class="strength-title">業界経験</div>
+        </div>
+        <div class="strength-card">
+          <div class="strength-number">50+</div>
+          <div class="strength-label">Partners</div>
+          <div class="strength-title">取引先パートナー</div>
+        </div>
+        <div class="strength-card">
+          <div class="strength-number">15+</div>
+          <div class="strength-label">Countries</div>
+          <div class="strength-title">対応国・地域</div>
+        </div>
+        <div class="strength-card">
+          <div class="strength-number">24h</div>
+          <div class="strength-label">Support</div>
+          <div class="strength-title">サポート体制</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 会社概要 -->
+  <div class="modal" id="modal-about">
+    <button class="modal-close" onclick="closeAllModals()"><i class="fas fa-times"></i></button>
+    <div class="modal-content">
+      <h2 class="modal-title"><i class="fas fa-building"></i> 会社概要</h2>
+      <p style="color: var(--text-muted); margin-bottom: 2rem; line-height: 1.9;">MIRAI TRADEは「未来」を見据え、グローバルな視点でビジネスの可能性を広げる貿易会社です。信頼と革新を基盤に、お客様と共に持続可能な成長を実現します。</p>
+      <div class="company-info">
+        <p><i class="fas fa-building"></i><strong>商号</strong>MIRAI TRADE 株式会社</p>
+        <p><i class="fas fa-calendar"></i><strong>設立</strong>2024年</p>
+        <p><i class="fas fa-map-marker-alt"></i><strong>所在地</strong>〒160-0022 東京都新宿区新宿3丁目38-1</p>
+        <p><i class="fas fa-phone"></i><strong>電話番号</strong>03-XXXX-XXXX</p>
+        <p><i class="fas fa-envelope"></i><strong>Email</strong>info@mirai-trade.co.jp</p>
+      </div>
+      <div class="map-section">
+        <h3><i class="fas fa-map-marked-alt"></i> アクセス</h3>
+        <div class="map-container">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.3627038983498!2d139.6982144!3d35.6896067!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188cd0d6b1ba1f%3A0x1c32a1f1ecacfdd5!2z5paw5a6_6aeF!5e0!3m2!1sja!2sjp!4v1702000000000!5m2!1sja!2sjp" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        <ul class="access-list">
+          <li><i class="fas fa-subway"></i><span class="station">新宿駅</span>（JR・小田急・京王）東口<span class="time">徒歩1分</span></li>
+          <li><i class="fas fa-subway"></i><span class="station">新宿駅</span>（メトロ丸ノ内線）B13出口<span class="time">徒歩2分</span></li>
+          <li><i class="fas fa-subway"></i><span class="station">新宿三丁目駅</span>（副都心線）E5出口<span class="time">徒歩3分</span></li>
+        </ul>
+        <a href="https://www.google.com/maps/search/?api=1&query=東京都新宿区新宿3丁目38-1" target="_blank" class="map-btn">
+          <i class="fab fa-google"></i> Google マップで開く
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- お問い合わせ -->
+  <div class="modal" id="modal-contact">
+    <button class="modal-close" onclick="closeAllModals()"><i class="fas fa-times"></i></button>
+    <div class="modal-content">
+      <h2 class="modal-title"><i class="fas fa-envelope"></i> お問い合わせ</h2>
+      <p style="color: var(--text-muted); margin-bottom: 2rem;">ビジネスに関するご相談やお問い合わせは、お気軽にご連絡ください。</p>
+      <form id="contact-form">
+        <div class="form-group">
+          <label>会社名</label>
+          <input type="text" name="company">
+        </div>
+        <div class="form-group">
+          <label>お名前 *</label>
+          <input type="text" name="name" required>
+        </div>
+        <div class="form-group">
+          <label>メールアドレス *</label>
+          <input type="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label>件名 *</label>
+          <input type="text" name="subject" required>
+        </div>
+        <div class="form-group">
+          <label>メッセージ *</label>
+          <textarea name="message" placeholder="お気軽にお問い合わせ内容をお書きください。" required></textarea>
+        </div>
+        <button type="submit" class="btn-submit"><i class="fas fa-paper-plane"></i> 送信</button>
+      </form>
+      <div class="form-message" id="form-message"></div>
+    </div>
+  </div>
+
+  <script>
+    function openModal(name) {
+      document.getElementById('modal-overlay').classList.add('active');
+      document.getElementById('modal-' + name).classList.add('active');
+      document.body.classList.add('modal-open');
+      document.getElementById('nav-links').classList.remove('active');
+    }
+    
+    function closeAllModals() {
+      document.getElementById('modal-overlay').classList.remove('active');
+      document.querySelectorAll('.modal').forEach(m => m.classList.remove('active'));
+      document.body.classList.remove('modal-open');
+    }
+    
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAllModals(); });
+    
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+      document.getElementById('nav-links').classList.toggle('active');
+    });
+    
+    window.addEventListener('scroll', function() {
+      document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 50);
+    });
+    
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('form-message').className = 'form-message success';
+      document.getElementById('form-message').textContent = 'お問い合わせありがとうございます。担当者より折り返しご連絡いたします。';
+      this.reset();
+    });
+  </script>
+</body>
+</html>
