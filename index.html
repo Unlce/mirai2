@@ -779,6 +779,92 @@
       margin-bottom: 0.5rem;
     }
 
+    /* News Section Styles */
+    .news-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    
+    .news-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-dark);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.2rem;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    
+    .news-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 0;
+      background: linear-gradient(180deg, var(--primary) 0%, var(--primary-dark) 100%);
+      transition: var(--transition);
+    }
+    
+    .news-item:hover {
+      border-color: var(--primary);
+      transform: translateX(6px);
+    }
+    
+    .news-item:hover::before { 
+      height: 100%; 
+    }
+    
+    .news-date {
+      font-size: 0.85rem;
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .news-date i {
+      font-size: 0.9rem;
+    }
+    
+    .news-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-white);
+      margin-bottom: 0.6rem;
+      letter-spacing: 0.3px;
+    }
+    
+    .news-summary {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      line-height: 1.75;
+      letter-spacing: 0.2px;
+    }
+    
+    .news-detail {
+      display: none;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-dark);
+    }
+    
+    .news-detail.active {
+      display: block;
+    }
+    
+    .news-detail p {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      line-height: 1.8;
+      margin-bottom: 0.8rem;
+    }
+
     /* レスポンシブ - タブレット */
     @media (max-width: 1024px) {
       .modal { width: 80%; }
@@ -855,8 +941,8 @@
       </a>
       <div class="menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></div>
       <ul class="nav-links" id="nav-links">
+        <li><a onclick="openModal('news')" data-i18n="nav.news">ニュース</a></li>
         <li><a onclick="openModal('services')" data-i18n="nav.services">事業内容</a></li>
-        <li><a onclick="openModal('strengths')" data-i18n="nav.strengths">強み</a></li>
         <li><a onclick="openModal('about')" data-i18n="nav.about">会社概要</a></li>
         <li><a onclick="openModal('contact')" data-i18n="nav.contact">お問い合わせ</a></li>
       </ul>
@@ -917,6 +1003,24 @@
 
   <div class="modal-overlay" id="modal-overlay" onclick="closeAllModals()"></div>
 
+  <!-- ニュース -->
+  <div class="modal" id="modal-news">
+    <button class="modal-close" onclick="closeAllModals()"><i class="fas fa-times"></i></button>
+    <div class="modal-content">
+      <h2 class="modal-title"><i class="fas fa-newspaper"></i> <span data-i18n="news.title">お知らせ</span></h2>
+      <div class="news-list">
+        <div class="news-item" onclick="toggleNewsDetail('news1')">
+          <div class="news-date"><i class="far fa-calendar-alt"></i> <span data-i18n="news.establishment.date">2024年</span></div>
+          <div class="news-title" data-i18n="news.establishment.title">会社設立のお知らせ</div>
+          <div class="news-summary" data-i18n="news.establishment.summary">みらいトレード株式会社を設立いたしました。</div>
+          <div class="news-detail" id="news1">
+            <p data-i18n="news.establishment.detail">この度、みらいトレード株式会社を設立いたしました。未来を見据えたグローバルトレーディングを通じて、信頼と革新で世界をつなぐ企業として、お客様と共に持続可能な成長を実現してまいります。今後とも、どうぞよろしくお願い申し上げます。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- 事業内容 -->
   <div class="modal" id="modal-services">
     <button class="modal-close" onclick="closeAllModals()"><i class="fas fa-times"></i></button>
@@ -937,12 +1041,18 @@
     </div>
   </div>
 
-  <!-- 強み -->
-  <div class="modal" id="modal-strengths">
+  <!-- 会社概要 -->
+  <div class="modal" id="modal-about">
     <button class="modal-close" onclick="closeAllModals()"><i class="fas fa-times"></i></button>
     <div class="modal-content">
-      <h2 class="modal-title"><i class="fas fa-award"></i> <span data-i18n="strengths.title">私たちの強み</span></h2>
-      <div class="strengths-grid">
+      <h2 class="modal-title"><i class="fas fa-building"></i> <span data-i18n="about.title">会社概要</span></h2>
+      <p style="color: var(--text-muted); margin-bottom: 2rem; line-height: 1.9;" data-i18n="about.description">みらいトレードは「未来」を見据え、グローバルな視点でビジネスの可能性を広げる貿易会社です。信頼と革新を基盤に、お客様と共に持続可能な成長を実現します。</p>
+      
+      <h3 style="font-size: 1.05rem; font-weight: 600; color: var(--text-white); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.7rem; letter-spacing: 0.3px;">
+        <i class="fas fa-award" style="color: var(--primary); font-size: 0.95rem;"></i>
+        <span data-i18n="strengths.title">私たちの強み</span>
+      </h3>
+      <div class="strengths-grid" style="margin-bottom: 2rem;">
         <div class="strength-card">
           <div class="strength-number">10+</div>
           <div class="strength-label">Years</div>
@@ -964,15 +1074,7 @@
           <div class="strength-title" data-i18n="strengths.support">サポート体制</div>
         </div>
       </div>
-    </div>
-  </div>
-
-  <!-- 会社概要 -->
-  <div class="modal" id="modal-about">
-    <button class="modal-close" onclick="closeAllModals()"><i class="fas fa-times"></i></button>
-    <div class="modal-content">
-      <h2 class="modal-title"><i class="fas fa-building"></i> <span data-i18n="about.title">会社概要</span></h2>
-      <p style="color: var(--text-muted); margin-bottom: 2rem; line-height: 1.9;" data-i18n="about.description">みらいトレードは「未来」を見据え、グローバルな視点でビジネスの可能性を広げる貿易会社です。信頼と革新を基盤に、お客様と共に持続可能な成長を実現します。</p>
+      
       <div class="company-info">
         <p><i class="fas fa-building"></i><strong data-i18n="about.company">商号</strong>みらいトレード株式会社</p>
         <p><i class="fas fa-calendar"></i><strong data-i18n="about.established">設立</strong>2024年</p>
@@ -991,7 +1093,7 @@
           <li><i class="fas fa-train"></i><span class="station">西小岩駅</span>（JR総武線 小岩駅）北口<span class="time" data-i18n="about.walk10">徒歩約10分</span></li>
           <li><i class="fas fa-subway"></i><span class="station">京成小岩駅</span>（京成本線）<span class="time" data-i18n="about.walk8">徒歩約8分</span></li>
         </ul>
-        <a href="https://www.google.com/maps/search/?api=1&query=東京都江戸川区西小岩1-30-5" target="_blank" class="map-btn">
+        <a href="https://www.google.com/maps/search/?api=1&query=東京都江戸川区西小岩1-30-5+BBI.BLD" target="_blank" class="map-btn">
           <i class="fab fa-google"></i> <span data-i18n="about.googleMaps">Google マップで開く</span>
         </a>
       </div>
@@ -1058,10 +1160,20 @@
     const translations = {
       ja: {
         nav: {
+          news: 'ニュース',
           services: '事業内容',
           strengths: '強み',
           about: '会社概要',
           contact: 'お問い合わせ'
+        },
+        news: {
+          title: 'お知らせ',
+          establishment: {
+            date: '2024年',
+            title: '会社設立のお知らせ',
+            summary: 'みらいトレード株式会社を設立いたしました。',
+            detail: 'この度、みらいトレード株式会社を設立いたしました。未来を見据えたグローバルトレーディングを通じて、信頼と革新で世界をつなぐ企業として、お客様と共に持続可能な成長を実現してまいります。今後とも、どうぞよろしくお願い申し上げます。'
+          }
         },
         hero: {
           subtitle: '未来を見据えたグローバルトレーディング',
@@ -1190,10 +1302,20 @@
       },
       zh: {
         nav: {
+          news: '新闻',
           services: '业务内容',
           strengths: '优势',
           about: '公司概况',
           contact: '联系我们'
+        },
+        news: {
+          title: '新闻动态',
+          establishment: {
+            date: '2024年',
+            title: '公司成立公告',
+            summary: 'Mirai Trade株式会社正式成立。',
+            detail: '我们正式成立了Mirai Trade株式会社。作为一家着眼未来的全球贸易企业，我们将以信赖与创新连接世界，与客户共同实现可持续发展。敬请期待我们的服务。'
+          }
         },
         hero: {
           subtitle: '着眼未来的全球贸易',
@@ -1322,10 +1444,20 @@
       },
       en: {
         nav: {
+          news: 'News',
           services: 'Services',
           strengths: 'Strengths',
           about: 'About Us',
           contact: 'Contact'
+        },
+        news: {
+          title: 'News & Updates',
+          establishment: {
+            date: '2024',
+            title: 'Company Establishment Announcement',
+            summary: 'Mirai Trade Co., Ltd. has been established.',
+            detail: 'We are pleased to announce the establishment of Mirai Trade Co., Ltd. As a company that looks toward the future through global trading, we connect the world with trust and innovation, and achieve sustainable growth together with our customers. We look forward to serving you.'
+          }
         },
         hero: {
           subtitle: 'Global Trading with an Eye on the Future',
@@ -1417,13 +1549,13 @@
         terms: {
           title: 'Terms of Service',
           content: `
-            <h3>Article 1 (Application)</h3>
+            <h3>Section 1 (Application)</h3>
             <p>These terms define the conditions for using services provided by Mirai Trade Co., Ltd. (hereinafter referred to as "the Company").</p>
             
-            <h3>Article 2 (Service Content)</h3>
+            <h3>Section 2 (Service Content)</h3>
             <p>The Company provides services such as international trade and import/export operations, business matching, and market research and consulting.</p>
             
-            <h3>Article 3 (User Responsibilities)</h3>
+            <h3>Section 3 (User Responsibilities)</h3>
             <p>Users must comply with the following when using this service:</p>
             <ul>
               <li>Comply with laws and these terms</li>
@@ -1431,7 +1563,7 @@
               <li>Not infringe on the rights of third parties</li>
             </ul>
             
-            <h3>Article 4 (Prohibited Acts)</h3>
+            <h3>Section 4 (Prohibited Acts)</h3>
             <p>Users must not engage in the following acts:</p>
             <ul>
               <li>Providing false information</li>
@@ -1439,13 +1571,13 @@
               <li>Acts that violate laws and regulations</li>
             </ul>
             
-            <h3>Article 5 (Disclaimer)</h3>
+            <h3>Section 5 (Disclaimer)</h3>
             <p>The Company makes no warranties regarding the completeness, accuracy, or usefulness of this service.</p>
             
-            <h3>Article 6 (Changes to Terms)</h3>
+            <h3>Section 6 (Changes to Terms)</h3>
             <p>The Company may change these terms as necessary. The changed terms will take effect from the time they are posted on the Company's website.</p>
             
-            <h3>Article 7 (Inquiries)</h3>
+            <h3>Section 7 (Inquiries)</h3>
             <p>For inquiries regarding these terms, please contact us at:<br>
             Email: miraitrade.jp@gmail.com<br>
             Phone: 03-6458-9748</p>
@@ -1454,10 +1586,20 @@
       },
       vi: {
         nav: {
+          news: 'Tin tức',
           services: 'Dịch vụ',
           strengths: 'Thế mạnh',
           about: 'Giới thiệu',
           contact: 'Liên hệ'
+        },
+        news: {
+          title: 'Tin tức',
+          establishment: {
+            date: 'Năm 2024',
+            title: 'Thông báo thành lập công ty',
+            summary: 'Mirai Trade Co., Ltd. đã được thành lập.',
+            detail: 'Chúng tôi vui mừng thông báo về việc thành lập Mirai Trade Co., Ltd. Là một công ty hướng tới tương lai thông qua thương mại toàn cầu, chúng tôi kết nối thế giới bằng sự tin cậy và đổi mới, và đạt được sự tăng trưởng bền vững cùng với khách hàng của mình. Chúng tôi mong được phục vụ quý khách.'
+          }
         },
         hero: {
           subtitle: 'Giao dịch toàn cầu hướng tới tương lai',
@@ -1693,6 +1835,11 @@
       document.getElementById('modal-overlay').classList.remove('active');
       document.querySelectorAll('.modal').forEach(m => m.classList.remove('active'));
       document.body.classList.remove('modal-open');
+    }
+    
+    function toggleNewsDetail(newsId) {
+      const detail = document.getElementById(newsId);
+      detail.classList.toggle('active');
     }
     
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAllModals(); });
