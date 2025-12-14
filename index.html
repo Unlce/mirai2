@@ -6,6 +6,7 @@
   <meta name="description" content="MIRAI TRADE - 未来を見据えたグローバルトレーディング。信頼と革新で世界をつなぐ。">
   <title>MIRAI TRADE | グローバルトレーディング</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Multi-language font support with font-display: swap for better performance -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -866,19 +867,19 @@
           <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i>
         </button>
         <div class="language-dropdown" id="language-dropdown">
-          <div class="language-option active" onclick="changeLanguage('ja')">
+          <div class="language-option active" data-lang="ja" onclick="changeLanguage('ja')">
             <span>🇯🇵</span>
             <span>日本語</span>
           </div>
-          <div class="language-option" onclick="changeLanguage('zh')">
+          <div class="language-option" data-lang="zh" onclick="changeLanguage('zh')">
             <span>🇨🇳</span>
             <span>中文</span>
           </div>
-          <div class="language-option" onclick="changeLanguage('en')">
+          <div class="language-option" data-lang="en" onclick="changeLanguage('en')">
             <span>🇺🇸</span>
             <span>English</span>
           </div>
-          <div class="language-option" onclick="changeLanguage('vi')">
+          <div class="language-option" data-lang="vi" onclick="changeLanguage('vi')">
             <span>🇻🇳</span>
             <span>Tiếng Việt</span>
           </div>
@@ -978,7 +979,7 @@
         <p><i class="fas fa-user-tie"></i><strong data-i18n="about.ceo">代表者</strong>代表取締役 張 煜喆</p>
         <p><i class="fas fa-map-marker-alt"></i><strong data-i18n="about.address">所在地</strong>〒133-0057 東京都江戸川区西小岩1-30-5 BBI.BLD501</p>
         <p><i class="fas fa-phone"></i><strong data-i18n="about.phone">電話番号</strong><a href="tel:03-6458-9748">03-6458-9748</a></p>
-        <p><i class="fas fa-fax"></i><strong>FAX</strong>03-6458-9197</p>
+        <p><i class="fas fa-fax"></i><strong data-i18n="about.fax">FAX</strong>03-6458-9197</p>
         <p><i class="fas fa-envelope"></i><strong>Email</strong><a href="mailto:miraitrade.jp@gmail.com">miraitrade.jp@gmail.com</a></p>
       </div>
       <div class="map-section">
@@ -1096,6 +1097,7 @@
           ceo: '代表者',
           address: '所在地',
           phone: '電話番号',
+          fax: 'FAX',
           access: 'アクセス',
           walk10: '徒歩約10分',
           walk8: '徒歩約8分',
@@ -1227,6 +1229,7 @@
           ceo: '代表人',
           address: '地址',
           phone: '电话',
+          fax: '传真',
           access: '交通',
           walk10: '步行约10分钟',
           walk8: '步行约8分钟',
@@ -1358,6 +1361,7 @@
           ceo: 'Representative',
           address: 'Address',
           phone: 'Phone',
+          fax: 'FAX',
           access: 'Access',
           walk10: 'About 10 min walk',
           walk8: 'About 8 min walk',
@@ -1489,6 +1493,7 @@
           ceo: 'Đại diện',
           address: 'Địa chỉ',
           phone: 'Điện thoại',
+          fax: 'FAX',
           access: 'Đường đi',
           walk10: 'Đi bộ khoảng 10 phút',
           walk8: 'Đi bộ khoảng 8 phút',
@@ -1592,14 +1597,23 @@
     // Get current language from localStorage or default to Japanese
     let currentLanguage = localStorage.getItem('language') || 'ja';
 
-    // Function to get nested translation
+    // Function to get nested translation with error handling
     function getTranslation(path) {
-      const keys = path.split('.');
-      let value = translations[currentLanguage];
-      for (const key of keys) {
-        value = value?.[key];
+      try {
+        const keys = path.split('.');
+        let value = translations[currentLanguage];
+        for (const key of keys) {
+          value = value?.[key];
+          if (value === undefined) {
+            console.warn(`Translation missing for key: ${path} in language: ${currentLanguage}`);
+            return path;
+          }
+        }
+        return value || path;
+      } catch (error) {
+        console.error(`Error getting translation for key: ${path}`, error);
+        return path;
       }
-      return value || path;
     }
 
     // Function to update all text content
@@ -1609,8 +1623,9 @@
         const key = element.getAttribute('data-i18n');
         const translation = getTranslation(key);
         
+        // Skip form inputs to avoid clearing user data
         if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-          element.value = translation;
+          return; // Labels are translated separately, inputs keep user data
         } else {
           element.textContent = translation;
         }
@@ -1632,11 +1647,13 @@
       // Update current language display
       document.getElementById('current-lang').textContent = languageNames[currentLanguage];
 
-      // Update active language option
+      // Update active language option using data attribute
       document.querySelectorAll('.language-option').forEach(option => {
         option.classList.remove('active');
+        if (option.getAttribute('data-lang') === currentLanguage) {
+          option.classList.add('active');
+        }
       });
-      document.querySelector(`.language-option[onclick*="${currentLanguage}"]`)?.classList.add('active');
     }
 
     // Function to change language
