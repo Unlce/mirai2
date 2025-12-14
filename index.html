@@ -818,6 +818,11 @@
       height: 100%; 
     }
     
+    .news-item:focus {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+    
     .news-date {
       font-size: 0.85rem;
       color: var(--primary);
@@ -1009,7 +1014,7 @@
     <div class="modal-content">
       <h2 class="modal-title"><i class="fas fa-newspaper"></i> <span data-i18n="news.title">お知らせ</span></h2>
       <div class="news-list">
-        <div class="news-item" onclick="toggleNewsDetail('news1')">
+        <div class="news-item" onclick="toggleNewsDetail('news1')" onkeypress="if(event.key==='Enter'||event.key===' ')toggleNewsDetail('news1')" tabindex="0" role="button" aria-expanded="false" aria-controls="news1">
           <div class="news-date"><i class="far fa-calendar-alt"></i> <span data-i18n="news.establishment.date">2024年</span></div>
           <div class="news-title" data-i18n="news.establishment.title">会社設立のお知らせ</div>
           <div class="news-summary" data-i18n="news.establishment.summary">みらいトレード株式会社を設立いたしました。</div>
@@ -1839,7 +1844,11 @@
     
     function toggleNewsDetail(newsId) {
       const detail = document.getElementById(newsId);
-      detail.classList.toggle('active');
+      const newsItem = detail.closest('.news-item');
+      const isActive = detail.classList.toggle('active');
+      if (newsItem) {
+        newsItem.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+      }
     }
     
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAllModals(); });
