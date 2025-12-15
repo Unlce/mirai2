@@ -1794,6 +1794,9 @@
         // Skip form inputs to avoid clearing user data
         if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
           return; // Labels are translated separately, inputs keep user data
+        } else if (element.id === 'company-name-en') {
+          // Skip company-name-en, it's handled specially below
+          return;
         } else {
           element.textContent = translation;
         }
@@ -1826,8 +1829,17 @@
       // Handle company name separator display
       const companyNameEn = getTranslation('about.companyNameEn');
       const separator = document.getElementById('company-name-separator');
-      if (separator) {
-        separator.textContent = companyNameEn ? ' / ' : '';
+      const companyNameEnElement = document.getElementById('company-name-en');
+      if (separator && companyNameEnElement) {
+        if (companyNameEn) {
+          separator.textContent = ' / ';
+          companyNameEnElement.textContent = companyNameEn;
+          companyNameEnElement.style.display = '';
+        } else {
+          separator.textContent = '';
+          companyNameEnElement.textContent = '';
+          companyNameEnElement.style.display = 'none';
+        }
       }
     }
 
