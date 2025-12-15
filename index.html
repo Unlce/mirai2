@@ -1777,7 +1777,7 @@
             return path;
           }
         }
-        return value || path;
+        return value !== undefined ? value : path;
       } catch (error) {
         console.error(`Error getting translation for key: ${path}`, error);
         return path;
