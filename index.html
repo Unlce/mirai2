@@ -539,9 +539,11 @@
     }
     
     .company-info p {
-      display: flex;
-      align-items: flex-start;
-      margin-bottom: 0.85rem;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0 1.2rem;
+      align-items: baseline;
+      margin-bottom: 1rem;
       font-size: 0.88rem;
       color: var(--text-light);
       letter-spacing: 0.2px;
@@ -558,9 +560,9 @@
     }
     
     .company-info strong {
-      min-width: 85px;
       color: var(--text-muted);
       font-weight: 500;
+      white-space: nowrap;
     }
 
     /* 地図 */
@@ -917,8 +919,10 @@
       .modal-close { top: 0.9rem; right: 0.9rem; width: 38px; height: 38px; font-size: 1rem; }
       .modal-title { font-size: 1.3rem; }
       .strengths-grid { grid-template-columns: 1fr; }
-      .company-info p { flex-direction: column; align-items: flex-start; }
-      .company-info strong { margin-bottom: 0.25rem; }
+      .company-info p { 
+        grid-template-columns: auto 1fr;
+        gap: 0 1rem;
+      }
       .service-card { padding: 1.2rem; }
       .cta-btn { padding: 0.8rem 1.8rem; font-size: 0.85rem; }
       footer { padding: 1.2rem 0; }
@@ -1078,7 +1082,7 @@
       </div>
       
       <div class="company-info">
-        <p><i class="fas fa-building"></i><strong data-i18n="about.company">商号</strong><span data-i18n="about.companyName">みらいトレード株式会社</span> / <span data-i18n="about.companyNameEn">Mirai trade CO.,LTD</span></p>
+        <p><i class="fas fa-building"></i><strong data-i18n="about.company">商号</strong><span><span data-i18n="about.companyName">みらいトレード株式会社</span><span id="company-name-separator"></span><span data-i18n="about.companyNameEn" id="company-name-en">Mirai trade CO.,LTD</span></span></p>
         <p><i class="fas fa-calendar"></i><strong data-i18n="about.established">設立</strong><span data-i18n="about.establishedYear">2018年</span></p>
         <p><i class="fas fa-user-tie"></i><strong data-i18n="about.ceo">代表者</strong><span data-i18n="about.ceoName">張 煜喆</span></p>
         <p><i class="fas fa-map-marker-alt"></i><strong data-i18n="about.address">所在地</strong>〒133-0057 <span data-i18n="about.addressDetail">東京都江戸川区西小岩1-30-5 BBI.BLD501</span></p>
@@ -1498,7 +1502,7 @@
           description: 'Founded seven years ago, our company has evolved from distributing personal care products to exporting Japanese daily goods and computer components, and today focuses on the global export of Japanese textiles and anime IP merchandise. Throughout this journey, we have continuously explored how trade can serve as a bridge to connect Japan more closely with the world. By leveraging cloud computing and blockchain technologies, we transform traditional and closed trade processes into an open, real-time, and transparent digital ecosystem. Our data-driven operations, on-chain incentive mechanisms, and participatory governance model ensure that every contribution is accurately recorded and fairly rewarded. Looking ahead, we aim to further integrate physical trade with digital innovation, building a sustainable next-generation global trade ecosystem where real and virtual value coexist.',
           company: 'Company Name',
           companyName: 'Mirai trade CO.,LTD',
-          companyNameEn: 'Mirai trade CO.,LTD',
+          companyNameEn: '',
           established: 'Established',
           establishedYear: '2018',
           ceo: 'Representative',
@@ -1818,6 +1822,13 @@
           option.classList.add('active');
         }
       });
+
+      // Handle company name separator display
+      const companyNameEn = getTranslation('about.companyNameEn');
+      const separator = document.getElementById('company-name-separator');
+      if (separator) {
+        separator.textContent = companyNameEn ? ' / ' : '';
+      }
     }
 
     // Function to change language
