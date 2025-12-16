@@ -1127,7 +1127,7 @@
         <span data-i18n="strengths.title">私たちの強み</span>
       </h3>
       <div class="strengths-grid" style="margin-bottom: 2rem;">
-        <div class="strength-card" onclick="toggleStrengthDetail('strength-experience')">
+        <div class="strength-card" onclick="toggleStrengthDetail('strength-experience')" onkeydown="handleStrengthKeydown(event, 'strength-experience')" tabindex="0" role="button" aria-expanded="false">
           <div class="strength-number">7+</div>
           <div class="strength-label">Years</div>
           <div class="strength-title" data-i18n="strengths.experience">業界経験</div>
@@ -1135,7 +1135,7 @@
             <p data-i18n="strengths.experienceDetail">7年にわたる国際貿易の実績を基盤に、豊富な輸出入経験とグローバルネットワークを有しております。また、専門のブロックチェーン・Web3技術チームを擁し、最新の分散型技術を活用したセキュアで効率的な取引ソリューションを提供いたします。お客様のビジネスを強力にサポートします。</p>
           </div>
         </div>
-        <div class="strength-card" onclick="toggleStrengthDetail('strength-countries')">
+        <div class="strength-card" onclick="toggleStrengthDetail('strength-countries')" onkeydown="handleStrengthKeydown(event, 'strength-countries')" tabindex="0" role="button" aria-expanded="false">
           <div class="strength-number">15+</div>
           <div class="strength-label">Countries</div>
           <div class="strength-title" data-i18n="strengths.countries">対応国・地域</div>
@@ -1143,7 +1143,7 @@
             <p data-i18n="strengths.countriesDetail">貿易事業においては、現在、アメリカ、イギリス、ドバイ、ベトナム、マレーシア、中国など数多くの海外諸国に対応しております。私たちは東京を拠点に、貿易を基盤として、ブロックチェーン技術を活用し、グローバルをつなげてまいります。</p>
           </div>
         </div>
-        <div class="strength-card" onclick="toggleStrengthDetail('strength-support')">
+        <div class="strength-card" onclick="toggleStrengthDetail('strength-support')" onkeydown="handleStrengthKeydown(event, 'strength-support')" tabindex="0" role="button" aria-expanded="false">
           <div class="strength-number">24h</div>
           <div class="strength-label">Support</div>
           <div class="strength-title" data-i18n="strengths.support">サポート体制</div>
@@ -1151,7 +1151,7 @@
             <p data-i18n="strengths.supportDetail">専任チームによる迅速な対応とブロックチェーン専門サポートで、お客様の国際取引を安心して支援いたします。</p>
           </div>
         </div>
-        <div class="strength-card" onclick="toggleStrengthDetail('strength-partners')">
+        <div class="strength-card" onclick="toggleStrengthDetail('strength-partners')" onkeydown="handleStrengthKeydown(event, 'strength-partners')" tabindex="0" role="button" aria-expanded="false">
           <div class="strength-number">50+</div>
           <div class="strength-label">Partners</div>
           <div class="strength-title" data-i18n="strengths.partners">取引先パートナー</div>
@@ -1892,10 +1892,17 @@
           // Skip company-name-en, it's handled specially below
           return;
         } else if (element.tagName === 'UL' && key === 'strengths.partnersList') {
-          // Handle partner list specially
+          // Handle partner list specially - safely create DOM elements
           const partners = getTranslation(key);
           if (Array.isArray(partners)) {
-            element.innerHTML = partners.map(partner => `<li>${partner}</li>`).join('');
+            // Clear existing content
+            element.innerHTML = '';
+            // Create list items safely
+            partners.forEach(partner => {
+              const li = document.createElement('li');
+              li.textContent = partner; // Use textContent to prevent XSS
+              element.appendChild(li);
+            });
           }
         } else {
           element.textContent = translation;
@@ -1993,9 +2000,28 @@
     }
     
     function toggleStrengthDetail(strengthId) {
+      // Whitelist of allowed strength IDs for security
+      const allowedIds = ['strength-experience', 'strength-countries', 'strength-support', 'strength-partners'];
+      if (!allowedIds.includes(strengthId)) return;
+      
       const detail = document.getElementById(strengthId);
       if (!detail) return;
-      detail.classList.toggle('active');
+      
+      const card = detail.closest('.strength-card');
+      const isActive = detail.classList.toggle('active');
+      
+      // Update aria-expanded for accessibility
+      if (card) {
+        card.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+      }
+    }
+    
+    function handleStrengthKeydown(event, strengthId) {
+      // Support keyboard interaction (Enter or Space)
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        toggleStrengthDetail(strengthId);
+      }
     }
     
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAllModals(); });
