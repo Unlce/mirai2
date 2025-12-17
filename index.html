@@ -1026,9 +1026,18 @@
       .company-info .address-text {
         white-space: normal;
         word-break: break-word;
-        display: inline-block;
-        text-indent: -5em;
-        padding-left: 5em;
+        display: inline !important;
+        flex: 1;
+        min-width: 0;
+        margin-left: var(--mobile-info-indent);
+        padding-left: 0.2rem;
+      }
+      .company-info .address-text span {
+        display: inline;
+        margin-left: 0;
+        padding-left: 0;
+        text-indent: -5.5em;
+        padding-left: 5.5em;
       }
       .service-card { padding: 1.2rem; }
       .cta-btn { padding: 0.8rem 1.8rem; font-size: 0.85rem; }
