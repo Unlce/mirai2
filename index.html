@@ -31,6 +31,7 @@
       --company-info-label-width: 120px;
       --company-info-label-width-mobile: 100px;
       --mobile-info-indent: 1.3rem;
+      --address-hanging-indent: 5.5em;
     }
     
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -1036,8 +1037,8 @@
         display: inline;
         margin-left: 0;
         padding-left: 0;
-        text-indent: -5.5em;
-        padding-left: 5.5em;
+        text-indent: calc(-1 * var(--address-hanging-indent));
+        padding-left: var(--address-hanging-indent);
       }
       .service-card { padding: 1.2rem; }
       .cta-btn { padding: 0.8rem 1.8rem; font-size: 0.85rem; }
