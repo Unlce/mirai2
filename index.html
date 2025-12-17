@@ -1024,18 +1024,25 @@
         margin-left: 0;
         padding-left: 0;
       }
-      .company-info .address-text {
-        white-space: normal;
-        word-break: break-word;
-        margin-left: var(--mobile-info-indent);
-        padding-left: 0.2rem;
+      /* アドレス表示最適化 - モバイル端末 */
+      .company-info .address-line .address-text {
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+        width: 100%;
       }
-      .company-info .address-text span {
-        display: inline;
-        margin-left: 0;
-        padding-left: 0;
-        text-indent: calc(-1 * var(--address-hanging-indent));
-        padding-left: var(--address-hanging-indent);
+      
+      .company-info .address-line .postal-code {
+        display: block;
+        font-weight: 500;
+      }
+      
+      .company-info .address-line .address-detail {
+        display: block;
+        font-size: 0.85rem;
+        overflow-wrap: break-word;
+        word-break: normal;
+        line-height: 1.6;
       }
       .service-card { padding: 1.2rem; }
       .cta-btn { padding: 0.8rem 1.8rem; font-size: 0.85rem; }
@@ -1219,7 +1226,7 @@
         <p><i class="fas fa-calendar"></i><strong data-i18n="about.established">設立</strong><span data-i18n="about.establishedYear">2018年</span></p>
         <p><i class="fas fa-yen-sign"></i><strong data-i18n="about.capital">資本金</strong><span data-i18n="about.capitalAmount">30,000,000円</span></p>
         <p><i class="fas fa-user-tie"></i><strong data-i18n="about.ceo">代表者</strong><span data-i18n="about.ceoName">張 煜喆</span></p>
-        <p class="address-line"><i class="fas fa-map-marker-alt"></i><strong data-i18n="about.address">所在地</strong><span class="address-text">〒133-0057 <span data-i18n="about.addressDetail">東京都江戸川区西小岩1-30-5 BBI.BLD501</span></span></p>
+        <p class="address-line"><i class="fas fa-map-marker-alt"></i><strong data-i18n="about.address">所在地</strong><span class="address-text"><span class="postal-code">〒133-0057</span><span class="address-detail" data-i18n="about.addressDetail">東京都江戸川区西小岩1-30-5 BBI.BLD501</span></span></p>
         <p><i class="fas fa-phone"></i><strong data-i18n="about.phone">電話番号</strong><a href="tel:03-6458-9748"><span data-i18n="about.phoneNumber">03-6458-9748</span></a></p>
         <p><i class="fas fa-fax"></i><strong data-i18n="about.fax">FAX</strong><span data-i18n="about.faxNumber">03-6458-9197</span></p>
         <p><i class="fas fa-university"></i><strong data-i18n="about.bank">主要取引銀行</strong><span data-i18n="about.bankDetail">三井住友銀行、GMOあおぞらネット銀行</span></p>
