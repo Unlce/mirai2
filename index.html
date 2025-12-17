@@ -992,27 +992,28 @@
       .strengths-grid { grid-template-columns: 1fr; }
       .company-info p {
         flex-wrap: wrap;
-        align-items: center;
+        align-items: flex-start;
         gap: 0;
       }
       .company-info i {
-        margin-top: 0;
+        margin-top: 0.2rem;
         margin-right: 0.5rem;
       }
       .company-info strong {
         min-width: var(--company-info-label-width-mobile);
         margin-right: 0.5rem;
+        flex-shrink: 0;
       }
       .company-info span,
       .company-info a {
-        flex-basis: 100%;
-        margin-top: 0.3rem;
-        padding-left: calc(18px + 0.5rem);
+        flex: 1;
+        min-width: 0;
+        word-break: break-word;
+        margin-left: calc(18px + var(--company-info-label-width-mobile) + 1rem);
       }
       .company-info .address-text {
         white-space: normal;
         word-break: break-word;
-        padding-left: 0;
       }
       .service-card { padding: 1.2rem; }
       .cta-btn { padding: 0.8rem 1.8rem; font-size: 0.85rem; }
@@ -1312,7 +1313,7 @@
           experience: '業界経験',
           experienceDetail: '7年にわたる国際貿易の実績を基盤に、豊富な輸出入経験とグローバルネットワークを有しております。また、専門のブロックチェーン・Web3技術チームを擁し、最新の分散型技術を活用したセキュアで効率的な取引ソリューションを提供いたします。お客様のビジネスを強力にサポートします。',
           partners: '取引先パートナー',
-          partnersList: ['株式会社ミナ', '株式会社 中矢パイル', 'GJS JAPAN株式会社', 'SNOVA株式会社', '夏沙国際行政書士事務所', 'Zyniqo株式会社'],
+          partnersList: ['株式会社MiNa', '株式会社中矢パイル', 'GJSジャパン株式会社', '株式会社SNOVA', 'Zyniqo株式会社', 'なつさ国際行政書士事務所'],
           countries: '対応国・地域',
           countriesDetail: '貿易事業においては、現在、アメリカ、イギリス、ドバイ、ベトナム、マレーシア、中国など数多くの海外諸国に対応しております。私たちは東京を拠点に、貿易を基盤として、ブロックチェーン技術を活用し、グローバルをつなげてまいります。',
           support: 'サポート体制',
@@ -1464,7 +1465,7 @@
           experience: '行业经验',
           experienceDetail: '凭借7年国际贸易经验，我们拥有丰富的进出口业务能力和全球网络。此外，我们拥有专业的区块链和Web3技术团队，利用最新的分布式技术提供安全高效的交易解决方案，为客户业务提供强有力的支持。',
           partners: '合作伙伴',
-          partnersList: ['株式会社ミナ', '株式会社 中矢パイル', 'GJS JAPAN株式会社', 'SNOVA株式会社', '夏沙国際行政書士事務所', 'Zyniqo株式会社'],
+          partnersList: ['株式会社MiNa', '株式会社中矢パイル', 'GJSジャパン株式会社', '株式会社SNOVA', 'Zyniqo株式会社', 'なつさ国際行政書士事務所'],
           countries: '覆盖国家/地区',
           countriesDetail: '在贸易业务中，我们目前服务于美国、英国、迪拜、越南、马来西亚、中国等众多海外国家和地区。我们以东京为基地，以贸易为基础，利用区块链技术，连接全球。',
           support: '支持体系',
@@ -1474,7 +1475,7 @@
           title: '公司概况',
           description: '公司成立七年来，从日用品代理销售起步，历经日本杂货和电脑配件出口，如今专注于日本布料及动漫IP相关商品的全球拓展。我们始终探索如何通过贸易更紧密地连接日本与世界。借助云计算和区块链技术，我们将传统封闭的贸易流程转型为开放、实时、透明的数字化生态系统。通过数据驱动运营、链上激励机制和全员参与式治理，确保每一份贡献都被准确记录和公平奖励。展望未来，我们致力于进一步融合实体贸易与数字创新，构建一个虚实共生的可持续新一代全球贸易生态系统。',
           company: '公司名称',
-          companyName: 'Mirai trade CO.,LTD',
+          companyName: 'みらいトレード株式会社',
           established: '成立时间',
           establishedYear: '2018年',
           capital: '资本金',
@@ -1507,7 +1508,7 @@
           success: '感谢您的咨询。我们的工作人员将尽快与您联系。'
         },
         footer: {
-          copyright: '© 2018-2025 みらいトレード株式会社 版权所有',
+          copyright: '© 2018-2025 みらいトレード株式会社 All rights reserved.',
           privacy: '隐私政策',
           terms: '使用条款'
         },
@@ -1616,7 +1617,7 @@
           experience: 'Industry Experience',
           experienceDetail: 'With 7 years of international trade experience, we have extensive import/export expertise and a global network. We also have a specialized blockchain and Web3 technology team, providing secure and efficient transaction solutions using the latest distributed technologies to strongly support your business.',
           partners: 'Business Partners',
-          partnersList: ['株式会社ミナ', '株式会社 中矢パイル', 'GJS JAPAN株式会社', 'SNOVA株式会社', '夏沙国際行政書士事務所', 'Zyniqo株式会社'],
+          partnersList: ['MiNa Co., Ltd.', 'Nakaya Pile Co., Ltd.', 'GJS JAPAN Co., Ltd.', 'SNOVA Co., Ltd.', 'Zyniqo Inc.', 'Natsusa International Gyoseishoshi office'],
           countries: 'Countries Covered',
           countriesDetail: 'In our trade business, we currently serve many overseas countries including the United States, United Kingdom, Dubai, Vietnam, Malaysia, and China. Based in Tokyo, we leverage blockchain technology to connect globally through trade.',
           support: 'Support System',
@@ -1626,7 +1627,7 @@
           title: 'About Us',
           description: 'Founded seven years ago, our company has evolved from distributing personal care products to exporting Japanese daily goods and computer components, and today focuses on the global export of Japanese textiles and anime IP merchandise. Throughout this journey, we have continuously explored how trade can serve as a bridge to connect Japan more closely with the world. By leveraging cloud computing and blockchain technologies, we transform traditional and closed trade processes into an open, real-time, and transparent digital ecosystem. Our data-driven operations, on-chain incentive mechanisms, and participatory governance model ensure that every contribution is accurately recorded and fairly rewarded. Looking ahead, we aim to further integrate physical trade with digital innovation, building a sustainable next-generation global trade ecosystem where real and virtual value coexist.',
           company: 'Company Name',
-          companyName: 'Mirai trade CO.,LTD',
+          companyName: 'MIRAI TRADE Co., Ltd.',
           established: 'Established',
           establishedYear: '2018',
           capital: 'Capital',
@@ -1659,7 +1660,7 @@
           success: 'Thank you for your inquiry. Our staff will contact you shortly.'
         },
         footer: {
-          copyright: '© 2018-2025 Mirai Trade Co., Ltd. All rights reserved.',
+          copyright: '© 2018-2025 MIRAI TRADE Co., Ltd. All rights reserved.',
           privacy: 'Privacy Policy',
           terms: 'Terms of Service'
         },
@@ -1768,7 +1769,7 @@
           experience: 'Kinh nghiệm ngành',
           experienceDetail: 'Với 7 năm kinh nghiệm thương mại quốc tế, chúng tôi sở hữu chuyên môn xuất nhập khẩu sâu rộng và mạng lưới toàn cầu. Chúng tôi cũng có đội ngũ chuyên gia blockchain và Web3, cung cấp các giải pháp giao dịch an toàn và hiệu quả sử dụng công nghệ phân tán mới nhất để hỗ trợ mạnh mẽ cho doanh nghiệp của bạn.',
           partners: 'Đối tác kinh doanh',
-          partnersList: ['株式会社ミナ', '株式会社 中矢パイル', 'GJS JAPAN株式会社', 'SNOVA株式会社', '夏沙国際行政書士事務所', 'Zyniqo株式会社'],
+          partnersList: ['MiNa Co., Ltd.', 'Nakaya Pile Co., Ltd.', 'GJS JAPAN Co., Ltd.', 'SNOVA Co., Ltd.', 'Zyniqo Inc.', 'Natsusa International Gyoseishoshi office'],
           countries: 'Quốc gia phục vụ',
           countriesDetail: 'Trong hoạt động thương mại, chúng tôi hiện phục vụ nhiều quốc gia bao gồm Hoa Kỳ, Vương quốc Anh, Dubai, Việt Nam, Malaysia và Trung Quốc. Có trụ sở tại Tokyo, chúng tôi tận dụng công nghệ blockchain để kết nối toàn cầu thông qua thương mại.',
           support: 'Hệ thống hỗ trợ',
@@ -1778,7 +1779,7 @@
           title: 'Giới thiệu công ty',
           description: 'Được thành lập cách đây bảy năm, công ty chúng tôi đã phát triển từ việc phân phối các sản phẩm chăm sóc cá nhân sang xuất khẩu hàng tiêu dùng Nhật Bản và linh kiện máy tính, và ngày nay tập trung vào xuất khẩu toàn cầu vải và hàng hóa IP anime Nhật Bản. Trong suốt hành trình này, chúng tôi liên tục khám phá cách thương mại có thể đóng vai trò cầu nối kết nối Nhật Bản chặt chẽ hơn với thế giới. Bằng cách tận dụng công nghệ điện toán đám mây và blockchain, chúng tôi chuyển đổi các quy trình thương mại truyền thống và khép kín thành một hệ sinh thái số mở, thời gian thực và minh bạch. Các hoạt động dựa trên dữ liệu, cơ chế khuyến khích trên chuỗi và mô hình quản trị có sự tham gia của chúng tôi đảm bảo mọi đóng góp đều được ghi nhận chính xác và khen thưởng công bằng.',
           company: 'Tên công ty',
-          companyName: 'Mirai trade CO.,LTD',
+          companyName: 'MIRAI TRADE Co., Ltd.',
           established: 'Thành lập',
           establishedYear: '2018',
           capital: 'Vốn điều lệ',
@@ -1811,7 +1812,7 @@
           success: 'Cảm ơn bạn đã liên hệ. Nhân viên của chúng tôi sẽ liên lạc với bạn trong thời gian sớm nhất.'
         },
         footer: {
-          copyright: '© 2018-2025 Mirai Trade Co., Ltd. Bản quyền đã được bảo hộ.',
+          copyright: '© 2018-2025 MIRAI TRADE Co., Ltd. All rights reserved.',
           privacy: 'Chính sách bảo mật',
           terms: 'Điều khoản dịch vụ'
         },
