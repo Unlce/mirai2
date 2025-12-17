@@ -545,16 +545,11 @@
     }
     
     .strength-detail {
-      display: none;
+      display: block;
       margin-top: 1rem;
       padding-top: 1rem;
       border-top: 1px solid var(--border-dark);
       text-align: left;
-      animation: slideDown 0.3s ease-out;
-    }
-    
-    .strength-detail.active {
-      display: block;
     }
     
     .strength-detail p {
@@ -586,20 +581,8 @@
       font-weight: bold;
     }
     
-    @keyframes slideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
     .strength-card {
-      cursor: pointer;
-      user-select: none;
+      cursor: default;
     }
 
     /* 会社情報 */
@@ -1146,35 +1129,35 @@
         <span data-i18n="strengths.title">私たちの強み</span>
       </h3>
       <div class="strengths-grid" style="margin-bottom: 2rem;">
-        <div class="strength-card" onclick="toggleStrengthDetail('strength-experience')" onkeydown="handleStrengthKeydown(event, 'strength-experience')" tabindex="0" role="button" aria-expanded="false">
+        <div class="strength-card">
           <div class="strength-number">7+</div>
           <div class="strength-label">Years</div>
           <div class="strength-title" data-i18n="strengths.experience">業界経験</div>
-          <div class="strength-detail" id="strength-experience">
+          <div class="strength-detail">
             <p data-i18n="strengths.experienceDetail">7年にわたる国際貿易の実績を基盤に、豊富な輸出入経験とグローバルネットワークを有しております。また、専門のブロックチェーン・Web3技術チームを擁し、最新の分散型技術を活用したセキュアで効率的な取引ソリューションを提供いたします。お客様のビジネスを強力にサポートします。</p>
           </div>
         </div>
-        <div class="strength-card" onclick="toggleStrengthDetail('strength-countries')" onkeydown="handleStrengthKeydown(event, 'strength-countries')" tabindex="0" role="button" aria-expanded="false">
+        <div class="strength-card">
           <div class="strength-number">15+</div>
           <div class="strength-label">Countries</div>
           <div class="strength-title" data-i18n="strengths.countries">対応国・地域</div>
-          <div class="strength-detail" id="strength-countries">
+          <div class="strength-detail">
             <p data-i18n="strengths.countriesDetail">貿易事業においては、現在、アメリカ、イギリス、ドバイ、ベトナム、マレーシア、中国など数多くの海外諸国に対応しております。私たちは東京を拠点に、貿易を基盤として、ブロックチェーン技術を活用し、グローバルをつなげてまいります。</p>
           </div>
         </div>
-        <div class="strength-card" onclick="toggleStrengthDetail('strength-support')" onkeydown="handleStrengthKeydown(event, 'strength-support')" tabindex="0" role="button" aria-expanded="false">
+        <div class="strength-card">
           <div class="strength-number">24h</div>
           <div class="strength-label">Support</div>
           <div class="strength-title" data-i18n="strengths.support">サポート体制</div>
-          <div class="strength-detail" id="strength-support">
+          <div class="strength-detail">
             <p data-i18n="strengths.supportDetail">専任チームによる迅速な対応とブロックチェーン専門サポートで、お客様の国際取引を安心して支援いたします。</p>
           </div>
         </div>
-        <div class="strength-card" onclick="toggleStrengthDetail('strength-partners')" onkeydown="handleStrengthKeydown(event, 'strength-partners')" tabindex="0" role="button" aria-expanded="false">
+        <div class="strength-card">
           <div class="strength-number">50+</div>
           <div class="strength-label">Partners</div>
           <div class="strength-title" data-i18n="strengths.partners">取引先パートナー</div>
-          <div class="strength-detail" id="strength-partners">
+          <div class="strength-detail">
             <ul data-i18n="strengths.partnersList">
               <li>株式会社ミナ</li>
               <li>株式会社 中矢パイル</li>
@@ -1459,9 +1442,13 @@
         strengths: {
           title: '我们的优势',
           experience: '行业经验',
+          experienceDetail: '凭借7年国际贸易经验，我们拥有丰富的进出口业务能力和全球网络。此外，我们拥有专业的区块链和Web3技术团队，利用最新的分布式技术提供安全高效的交易解决方案，为客户业务提供强有力的支持。',
           partners: '合作伙伴',
+          partnersList: ['株式会社ミナ', '株式会社 中矢パイル', 'GJS JAPAN株式会社', 'SNOVA株式会社', '夏沙国際行政書士事務所', 'Zyniqo株式会社'],
           countries: '覆盖国家/地区',
-          support: '支持体系'
+          countriesDetail: '在贸易业务中，我们目前服务于美国、英国、迪拜、越南、马来西亚、中国等众多海外国家和地区。我们以东京为基地，以贸易为基础，利用区块链技术，连接全球。',
+          support: '支持体系',
+          supportDetail: '我们拥有专业团队提供快速响应和区块链专业支持，让您的国际交易安心无忧。'
         },
         about: {
           title: '公司概况',
@@ -1608,9 +1595,13 @@
         strengths: {
           title: 'Our Strengths',
           experience: 'Industry Experience',
+          experienceDetail: 'With 7 years of international trade experience, we have extensive import/export expertise and a global network. We also have a specialized blockchain and Web3 technology team, providing secure and efficient transaction solutions using the latest distributed technologies to strongly support your business.',
           partners: 'Business Partners',
+          partnersList: ['株式会社ミナ', '株式会社 中矢パイル', 'GJS JAPAN株式会社', 'SNOVA株式会社', '夏沙国際行政書士事務所', 'Zyniqo株式会社'],
           countries: 'Countries Covered',
-          support: 'Support System'
+          countriesDetail: 'In our trade business, we currently serve many overseas countries including the United States, United Kingdom, Dubai, Vietnam, Malaysia, and China. Based in Tokyo, we leverage blockchain technology to connect globally through trade.',
+          support: 'Support System',
+          supportDetail: 'Our dedicated team provides prompt response and specialized blockchain support to give you peace of mind in your international transactions.'
         },
         about: {
           title: 'About Us',
@@ -1757,9 +1748,13 @@
         strengths: {
           title: 'Thế mạnh của chúng tôi',
           experience: 'Kinh nghiệm ngành',
+          experienceDetail: 'Với 7 năm kinh nghiệm thương mại quốc tế, chúng tôi sở hữu chuyên môn xuất nhập khẩu sâu rộng và mạng lưới toàn cầu. Chúng tôi cũng có đội ngũ chuyên gia blockchain và Web3, cung cấp các giải pháp giao dịch an toàn và hiệu quả sử dụng công nghệ phân tán mới nhất để hỗ trợ mạnh mẽ cho doanh nghiệp của bạn.',
           partners: 'Đối tác kinh doanh',
+          partnersList: ['株式会社ミナ', '株式会社 中矢パイル', 'GJS JAPAN株式会社', 'SNOVA株式会社', '夏沙国際行政書士事務所', 'Zyniqo株式会社'],
           countries: 'Quốc gia phục vụ',
-          support: 'Hệ thống hỗ trợ'
+          countriesDetail: 'Trong hoạt động thương mại, chúng tôi hiện phục vụ nhiều quốc gia bao gồm Hoa Kỳ, Vương quốc Anh, Dubai, Việt Nam, Malaysia và Trung Quốc. Có trụ sở tại Tokyo, chúng tôi tận dụng công nghệ blockchain để kết nối toàn cầu thông qua thương mại.',
+          support: 'Hệ thống hỗ trợ',
+          supportDetail: 'Đội ngũ chuyên trách của chúng tôi cung cấp phản hồi nhanh chóng và hỗ trợ blockchain chuyên biệt để bạn yên tâm trong các giao dịch quốc tế.'
         },
         about: {
           title: 'Giới thiệu công ty',
@@ -2021,31 +2016,6 @@
       const isActive = detail.classList.toggle('active');
       if (newsItem) {
         newsItem.setAttribute('aria-expanded', isActive ? 'true' : 'false');
-      }
-    }
-    
-    function toggleStrengthDetail(strengthId) {
-      // Whitelist of allowed strength IDs for security
-      const allowedIds = ['strength-experience', 'strength-countries', 'strength-support', 'strength-partners'];
-      if (!allowedIds.includes(strengthId)) return;
-      
-      const detail = document.getElementById(strengthId);
-      if (!detail) return;
-      
-      const card = detail.closest('.strength-card');
-      const isActive = detail.classList.toggle('active');
-      
-      // Update aria-expanded for accessibility
-      if (card) {
-        card.setAttribute('aria-expanded', isActive ? 'true' : 'false');
-      }
-    }
-    
-    function handleStrengthKeydown(event, strengthId) {
-      // Support keyboard interaction (Enter or Space)
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        toggleStrengthDetail(strengthId);
       }
     }
     
