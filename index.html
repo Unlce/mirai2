@@ -30,6 +30,7 @@
       --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       --company-info-label-width: 120px;
       --company-info-label-width-mobile: 100px;
+      --mobile-info-indent: 1.3rem;
     }
     
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -991,25 +992,32 @@
       .modal-title { font-size: 1.3rem; }
       .strengths-grid { grid-template-columns: 1fr; }
       .company-info p {
-        flex-wrap: wrap;
+        flex-direction: column;
         align-items: flex-start;
-        gap: 0;
+        gap: 0.3rem;
+        position: relative;
       }
       .company-info i {
-        margin-top: 0.2rem;
-        margin-right: 0.5rem;
+        position: absolute;
+        left: 0;
+        top: 0.2rem;
+        margin-right: 0;
       }
       .company-info strong {
-        min-width: var(--company-info-label-width-mobile);
-        margin-right: 0.5rem;
+        min-width: unset;
+        margin-right: 0;
+        margin-left: var(--mobile-info-indent);
+        padding-left: 0.2rem;
         flex-shrink: 0;
+        font-size: 0.8rem;
       }
       .company-info span,
       .company-info a {
         flex: 1;
         min-width: 0;
         word-break: break-word;
-        margin-left: calc(18px + var(--company-info-label-width-mobile) + 1rem);
+        margin-left: var(--mobile-info-indent);
+        padding-left: 0.2rem;
       }
       .company-info .address-text {
         white-space: normal;
