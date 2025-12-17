@@ -439,6 +439,8 @@
     .modal-title i {
       color: var(--primary);
       font-size: 1.3rem;
+      display: flex;
+      align-items: center;
     }
     
     .modal-title::after {
@@ -490,7 +492,12 @@
       letter-spacing: 0.3px;
     }
     
-    .service-card h4 i { color: var(--primary); font-size: 0.95rem; }
+    .service-card h4 i { 
+      color: var(--primary); 
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+    }
     
     .service-card p {
       color: var(--text-muted);
@@ -613,8 +620,10 @@
       width: 18px;
       flex-shrink: 0;
       margin-right: 0.85rem;
-      margin-top: 0;
+      margin-top: 0.15rem;
       font-size: 0.9rem;
+      display: flex;
+      align-items: center;
     }
     
     .company-info strong {
@@ -644,7 +653,12 @@
       letter-spacing: 0.3px;
     }
     
-    .map-section h3 i { color: var(--primary); font-size: 0.95rem; }
+    .map-section h3 i { 
+      color: var(--primary); 
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+    }
     
     .map-container {
       width: 100%;
@@ -988,11 +1002,17 @@
         min-width: var(--company-info-label-width-mobile);
       }
       .company-info p {
-        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3rem;
+      }
+      .company-info i {
+        margin-top: 0.2rem;
       }
       .company-info .address-text {
         white-space: normal;
         word-break: break-word;
+        padding-left: 0;
       }
       .service-card { padding: 1.2rem; }
       .cta-btn { padding: 0.8rem 1.8rem; font-size: 0.85rem; }
@@ -1172,7 +1192,7 @@
       </div>
       
       <div class="company-info">
-        <p><i class="fas fa-building"></i><strong data-i18n="about.company">商号</strong><span><span data-i18n="about.companyName">みらいトレード株式会社</span><span id="company-name-separator"></span><span data-i18n="about.companyNameEn" id="company-name-en">Mirai trade CO.,LTD</span></span></p>
+        <p><i class="fas fa-building"></i><strong data-i18n="about.company">商号</strong><span data-i18n="about.companyName">みらいトレード株式会社</span></p>
         <p><i class="fas fa-calendar"></i><strong data-i18n="about.established">設立</strong><span data-i18n="about.establishedYear">2018年</span></p>
         <p><i class="fas fa-yen-sign"></i><strong data-i18n="about.capital">資本金</strong><span data-i18n="about.capitalAmount">30,000,000円</span></p>
         <p><i class="fas fa-user-tie"></i><strong data-i18n="about.ceo">代表者</strong><span data-i18n="about.ceoName">張 煜喆</span></p>
@@ -1303,7 +1323,7 @@
           description: '当社は創業以来7年間、日用品の代理販売から、日本雑貨やコンピュータ部品の輸出を経て、現在は日本製の布地およびアニメIP関連商品のグローバル展開に注力してきました。私たちは常に、貿易を通じて日本と世界をより強く結び付ける方法を模索しています。クラウドおよびブロックチェーン技術を活用し、従来の閉鎖的な貿易プロセスを、リアルタイムかつ高い透明性を備えたデジタル基盤へと進化させています。データドリブンな運営、オンチェーン型インセンティブ、全員参加型ガバナンスを通じて、リアルとバーチャルが共生する持続可能な次世代貿易エコシステムの構築を目指しています。',
           company: '商号',
           companyName: 'みらいトレード株式会社',
-          companyNameEn: 'Mirai trade CO.,LTD',
+          companyNameEn: '',
           established: '設立',
           establishedYear: '2018年',
           capital: '資本金',
@@ -1455,8 +1475,8 @@
           title: '公司概况',
           description: '公司成立七年来，从日用品代理销售起步，历经日本杂货和电脑配件出口，如今专注于日本布料及动漫IP相关商品的全球拓展。我们始终探索如何通过贸易更紧密地连接日本与世界。借助云计算和区块链技术，我们将传统封闭的贸易流程转型为开放、实时、透明的数字化生态系统。通过数据驱动运营、链上激励机制和全员参与式治理，确保每一份贡献都被准确记录和公平奖励。展望未来，我们致力于进一步融合实体贸易与数字创新，构建一个虚实共生的可持续新一代全球贸易生态系统。',
           company: '公司名称',
-          companyName: 'みらいトレード株式会社',
-          companyNameEn: 'Mirai trade CO.,LTD',
+          companyName: 'Mirai trade CO.,LTD',
+          companyNameEn: '',
           established: '成立时间',
           establishedYear: '2018年',
           capital: '资本金',
@@ -1761,8 +1781,8 @@
           title: 'Giới thiệu công ty',
           description: 'Được thành lập cách đây bảy năm, công ty chúng tôi đã phát triển từ việc phân phối các sản phẩm chăm sóc cá nhân sang xuất khẩu hàng tiêu dùng Nhật Bản và linh kiện máy tính, và ngày nay tập trung vào xuất khẩu toàn cầu vải và hàng hóa IP anime Nhật Bản. Trong suốt hành trình này, chúng tôi liên tục khám phá cách thương mại có thể đóng vai trò cầu nối kết nối Nhật Bản chặt chẽ hơn với thế giới. Bằng cách tận dụng công nghệ điện toán đám mây và blockchain, chúng tôi chuyển đổi các quy trình thương mại truyền thống và khép kín thành một hệ sinh thái số mở, thời gian thực và minh bạch. Các hoạt động dựa trên dữ liệu, cơ chế khuyến khích trên chuỗi và mô hình quản trị có sự tham gia của chúng tôi đảm bảo mọi đóng góp đều được ghi nhận chính xác và khen thưởng công bằng.',
           company: 'Tên công ty',
-          companyName: 'みらいトレード株式会社',
-          companyNameEn: 'Mirai trade CO.,LTD',
+          companyName: 'Mirai trade CO.,LTD',
+          companyNameEn: '',
           established: 'Thành lập',
           establishedYear: '2018',
           capital: 'Vốn điều lệ',
@@ -1909,9 +1929,6 @@
         // Skip form inputs to avoid clearing user data
         if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
           return; // Labels are translated separately, inputs keep user data
-        } else if (element.id === 'company-name-en') {
-          // Skip company-name-en, it's handled specially below
-          return;
         } else if (element.tagName === 'UL' && key === 'strengths.partnersList') {
           // Handle partner list specially - safely create DOM elements
           const partners = getTranslation(key);
@@ -1954,21 +1971,7 @@
         }
       });
 
-      // Handle company name separator display
-      const companyNameEn = getTranslation('about.companyNameEn');
-      const separator = document.getElementById('company-name-separator');
-      const companyNameEnElement = document.getElementById('company-name-en');
-      if (separator && companyNameEnElement) {
-        if (companyNameEn) {
-          separator.textContent = ' / ';
-          companyNameEnElement.textContent = companyNameEn;
-          companyNameEnElement.style.display = '';
-        } else {
-          separator.textContent = '';
-          companyNameEnElement.textContent = '';
-          companyNameEnElement.style.display = 'none';
-        }
-      }
+
     }
 
     // Function to change language
