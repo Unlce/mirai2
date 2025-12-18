@@ -56,6 +56,15 @@
     body[lang="en"] { font-family: 'Inter', 'Roboto', sans-serif; }
     body[lang="vi"] { font-family: 'Roboto', 'Open Sans', sans-serif; }
     
+    /* Language-specific hero logo adjustments */
+    body[lang="ja"] .hero-logo-wrapper,
+    body[lang="en"] .hero-logo-wrapper,
+    body[lang="vi"] .hero-logo-wrapper { margin-bottom: 2.2rem; }
+    
+    body[lang="ja"] .hero-logo,
+    body[lang="en"] .hero-logo,
+    body[lang="vi"] .hero-logo { width: 140px; }
+    
     body.modal-open { overflow: hidden; }
     
     a { color: var(--primary); text-decoration: none; transition: var(--transition); }
@@ -987,6 +996,15 @@
       .hero p { font-size: 0.88rem; }
       .hero-logo-wrapper { width: 160px; height: 160px; }
       .hero-logo { width: 120px; }
+      
+      /* Language-specific mobile hero logo adjustments */
+      body[lang="ja"] .hero-logo-wrapper,
+      body[lang="en"] .hero-logo-wrapper,
+      body[lang="vi"] .hero-logo-wrapper { margin-bottom: 2rem; }
+      
+      body[lang="ja"] .hero-logo,
+      body[lang="en"] .hero-logo,
+      body[lang="vi"] .hero-logo { width: 110px; }
       
       .modal { width: 100%; }
       .modal-content { padding: 2.5rem 1.3rem; }
