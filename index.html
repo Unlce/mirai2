@@ -987,6 +987,13 @@
       .hero p { font-size: 0.88rem; }
       .hero-logo-wrapper { width: 160px; height: 160px; }
       .hero-logo { width: 120px; }
+      
+      /* Adjust hero content position for non-Chinese languages on mobile */
+      body[lang="ja"] .hero-content,
+      body[lang="en"] .hero-content,
+      body[lang="vi"] .hero-content {
+        margin-top: 3rem;
+      }
       .modal { width: 100%; }
       .modal-content { padding: 2.5rem 1.3rem; }
       .modal-close { top: 0.9rem; right: 0.9rem; width: 38px; height: 38px; font-size: 1rem; }
@@ -1260,27 +1267,33 @@
     <div class="modal-content">
       <h2 class="modal-title"><i class="fas fa-envelope"></i> <span data-i18n="contact.title">お問い合わせ</span></h2>
       <p style="color: var(--text-muted); margin-bottom: 2rem;" data-i18n="contact.description">ビジネスに関するご相談やお問い合わせは、お気軽にご連絡ください。</p>
-      <form id="contact-form">
+      <form id="contact-form" action="https://formspree.io/f/xwveenzj" method="POST">
         <div class="form-group">
           <label data-i18n="contact.company">会社名</label>
-          <input type="text" name="company">
+          <input type="text" name="company" id="company">
         </div>
         <div class="form-group">
           <label data-i18n="contact.name">お名前 *</label>
-          <input type="text" name="name" required>
+          <input type="text" name="name" id="name" required>
         </div>
         <div class="form-group">
           <label data-i18n="contact.email">メールアドレス *</label>
-          <input type="email" name="email" required>
+          <input type="email" name="email" id="email" required>
         </div>
         <div class="form-group">
           <label data-i18n="contact.subject">件名 *</label>
-          <input type="text" name="subject" required>
+          <input type="text" name="subject" id="subject" required>
         </div>
         <div class="form-group">
           <label data-i18n="contact.message">メッセージ *</label>
-          <textarea name="message" data-i18n-placeholder="contact.placeholder" placeholder="お気軽にお問い合わせ内容をお書きください。" required></textarea>
+          <textarea name="message" id="message" data-i18n-placeholder="contact.placeholder" placeholder="お気軽にお問い合わせ内容をお書きください。" required></textarea>
         </div>
+        
+        <!-- Formspree hidden fields -->
+        <input type="hidden" name="_replyto" id="hidden-replyto">
+        <input type="hidden" name="_subject" id="hidden-subject">
+        <input type="hidden" name="_next" value="https://unlce.github.io/mirai2/#contact">
+        
         <button type="submit" class="btn-submit"><i class="fas fa-paper-plane"></i> <span data-i18n="contact.submit">送信</span></button>
       </form>
       <div class="form-message" id="form-message"></div>
@@ -1349,7 +1362,7 @@
           experience: '業界経験',
           experienceDetail: '7年にわたる国際貿易の実績を基盤に、豊富な輸出入経験とグローバルネットワークを有しております。また、専門のブロックチェーン・Web3技術チームを擁し、最新の分散型技術を活用したセキュアで効率的な取引ソリューションを提供いたします。お客様のビジネスを強力にサポートします。',
           partners: '取引先パートナー',
-          partnersList: ['株式会社MiNa', '株式会社中矢パイル', 'GJSジャパン株式会社', '株式会社SNOVA', 'Zyniqo株式会社', 'なつさ国際行政書士事務所'],
+          partnersList: ['株式会社MiNa', '株式会社中矢パイル', 'GJSジャパン株式会社', 'SNOVA株式会社', 'Zyniqo株式会社', '夏沙国際行政書士事務所'],
           countries: '対応国・地域',
           countriesDetail: '貿易事業においては、現在、アメリカ、イギリス、ドバイ、ベトナム、マレーシア、中国など数多くの海外諸国に対応しております。私たちは東京を拠点に、貿易を基盤として、ブロックチェーン技術を活用し、グローバルをつなげてまいります。',
           support: 'サポート体制',
@@ -1501,7 +1514,7 @@
           experience: '行业经验',
           experienceDetail: '凭借7年国际贸易经验，我们拥有丰富的进出口业务能力和全球网络。此外，我们拥有专业的区块链和Web3技术团队，利用最新的分布式技术提供安全高效的交易解决方案，为客户业务提供强有力的支持。',
           partners: '合作伙伴',
-          partnersList: ['株式会社MiNa', '株式会社中矢パイル', 'GJSジャパン株式会社', '株式会社SNOVA', 'Zyniqo株式会社', 'なつさ国際行政書士事務所'],
+          partnersList: ['株式会社MiNa', '株式会社中矢パイル', 'GJSジャパン株式会社', 'SNOVA株式会社', 'Zyniqo株式会社', '夏沙国際行政書士事務所'],
           countries: '覆盖国家/地区',
           countriesDetail: '在贸易业务中，我们目前服务于美国、英国、迪拜、越南、马来西亚、中国等众多海外国家和地区。我们以东京为基地，以贸易为基础，利用区块链技术，连接全球。',
           support: '支持体系',
@@ -2067,11 +2080,12 @@
     });
     
     document.getElementById('contact-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const successMessage = getTranslation('contact.success');
-      document.getElementById('form-message').className = 'form-message success';
-      document.getElementById('form-message').textContent = successMessage;
-      this.reset();
+      // Set hidden fields for Formspree
+      document.getElementById('hidden-replyto').value = document.getElementById('email').value;
+      document.getElementById('hidden-subject').value = 'MIRAI TRADE: ' + document.getElementById('subject').value;
+      
+      // Allow normal form submission (Formspree will handle CAPTCHA and redirect)
+      // Don't call e.preventDefault() to allow browser to redirect to Formspree
     });
 
     // Initialize content on page load
