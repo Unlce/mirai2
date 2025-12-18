@@ -56,14 +56,18 @@
     body[lang="en"] { font-family: 'Inter', 'Roboto', sans-serif; }
     body[lang="vi"] { font-family: 'Roboto', 'Open Sans', sans-serif; }
     
-    /* Language-specific hero logo adjustments */
-    body[lang="ja"] .hero-logo-wrapper,
-    body[lang="en"] .hero-logo-wrapper,
-    body[lang="vi"] .hero-logo-wrapper { margin-bottom: 2.2rem; }
+    /* Language-specific hero logo adjustments - 统一以中文为基准 */
+    /* 日语 - 与中文相同 */
+    body[lang="ja"] .hero-logo-wrapper { margin-bottom: 2.5rem; }
+    body[lang="ja"] .hero-logo { width: 150px; }
     
-    body[lang="ja"] .hero-logo,
-    body[lang="en"] .hero-logo,
-    body[lang="vi"] .hero-logo { width: 140px; }
+    /* 英语 - 文字较长，减少 logo 下方间距来补偿 */
+    body[lang="en"] .hero-logo-wrapper { margin-bottom: 2.0rem; }
+    body[lang="en"] .hero-logo { width: 150px; }
+    
+    /* 越南语 - 有声调符号增加垂直高度，进一步减少间距 */
+    body[lang="vi"] .hero-logo-wrapper { margin-bottom: 1.8rem; }
+    body[lang="vi"] .hero-logo { width: 150px; }
     
     body.modal-open { overflow: hidden; }
     
@@ -997,14 +1001,18 @@
       .hero-logo-wrapper { width: 160px; height: 160px; }
       .hero-logo { width: 120px; }
       
-      /* Language-specific mobile hero logo adjustments */
-      body[lang="ja"] .hero-logo-wrapper,
-      body[lang="en"] .hero-logo-wrapper,
-      body[lang="vi"] .hero-logo-wrapper { margin-bottom: 2rem; }
+      /* Language-specific mobile hero logo adjustments - 统一以中文为基准 */
+      /* 日语 - 与中文相同 */
+      body[lang="ja"] .hero-logo-wrapper { margin-bottom: 2.5rem; }
+      body[lang="ja"] .hero-logo { width: 120px; }
       
-      body[lang="ja"] .hero-logo,
-      body[lang="en"] .hero-logo,
-      body[lang="vi"] .hero-logo { width: 110px; }
+      /* 英语 - 移动端文字换行更多，适当减少间距 */
+      body[lang="en"] .hero-logo-wrapper { margin-bottom: 1.8rem; }
+      body[lang="en"] .hero-logo { width: 120px; }
+      
+      /* 越南语 - 声调符号 + 文字长度，最大幅度减少间距 */
+      body[lang="vi"] .hero-logo-wrapper { margin-bottom: 1.5rem; }
+      body[lang="vi"] .hero-logo { width: 120px; }
       
       .modal { width: 100%; }
       .modal-content { padding: 2.5rem 1.3rem; }
