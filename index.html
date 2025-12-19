@@ -833,6 +833,54 @@
     
     footer p { margin-bottom: 0.3rem; }
     footer p:last-child { margin-bottom: 0; }
+
+    /* SNS Links Styles */
+    .sns-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .sns-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-dark);
+      border-radius: 50%;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      transition: var(--transition);
+    }
+
+    .sns-links a:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px var(--accent-glow);
+    }
+
+    /* Instagram specific hover color */
+    .sns-links a.sns-instagram:hover {
+      background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+      border-color: transparent;
+    }
+
+    /* Sandbox specific hover color */
+    .sns-links a.sns-sandbox:hover {
+      background: #00A3FF;
+      border-color: #00A3FF;
+    }
+
+    /* RedNote specific hover color */
+    .sns-links a.sns-rednote:hover {
+      background: #FF2442;
+      border-color: #FF2442;
+    }
     
     /* Legal Content Styles */
     .legal-section {
@@ -1158,6 +1206,29 @@
 
   <footer>
     <div class="container">
+      <div class="sns-links">
+        <a href="https://www.instagram.com/miraitrade" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           class="sns-instagram" 
+           aria-label="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://www.sandbox.game/zh-CN/" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           class="sns-sandbox" 
+           aria-label="The Sandbox">
+          <i class="fas fa-cube"></i>
+        </a>
+        <a href="https://xhslink.com/m/3niaKMJp6ah" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           class="sns-rednote" 
+           aria-label="RedNote 小紅書">
+          <i class="fas fa-book-open"></i>
+        </a>
+      </div>
       <p data-i18n="footer.copyright">&copy; 2018-2025 みらいトレード株式会社 All rights reserved.</p>
       <p>
         <a onclick="openModal('privacy')" data-i18n="footer.privacy">プライバシーポリシー</a> | 
