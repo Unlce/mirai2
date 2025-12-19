@@ -814,11 +814,12 @@
     footer {
       background: #050505;
       border-top: 1px solid var(--border-dark);
-      padding: 1.5rem 0;
+      padding: 2rem 0 1.5rem; /* 上部のパディングを1.5remから2remに増やす */
       text-align: center;
       font-size: 0.8rem;
       color: var(--text-muted);
       letter-spacing: 0.2px;
+      overflow: visible; /* 追加：影やエフェクトが切れないようにする */
     }
     
     footer a { 
@@ -840,6 +841,7 @@
       justify-content: center;
       gap: 1.2rem;
       margin-bottom: 1rem;
+      padding-top: 0.5rem; /* 追加：ホバー時の影やtransformエフェクトが上部で切れないようにする */
     }
 
     .sns-links a {
